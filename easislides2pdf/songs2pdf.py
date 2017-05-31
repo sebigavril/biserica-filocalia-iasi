@@ -34,7 +34,9 @@ class Songs2Pdf:
             elements = []
             elements.append(Spacer(0, 36))
             elements.append(Paragraph('\t\tCÂNTECE<br />\t\tFILOCALIA', self.titleStyle))
-            for i, song in enumerate(songs):
+            titlesToFilter = ['Anunț', 'Anunt catiheza', 'Anunt intalnire femei', 'Anunt123', 'Intrbarea zilei', 'Intrebari', 'TACHAT KENAFAV-UNDER HIS WINGS  /TEHILLIM/PSALM 91', 'Telefon', 'Tsama Nafshi (Psalm 42:1-2)']
+            filteredSongs = [s for s in songs if len(s.content) != 0 and s.title.encode("utf-8") not in titlesToFilter ]
+            for i, song in enumerate(filteredSongs):
                 elements.append(PageBreak())
                 elements.append(Paragraph(str(i + 1) + '. ' + song.title.upper() + '<br />', self.songTitleStyle))
                 elements.append(Spacer(0, 10))
