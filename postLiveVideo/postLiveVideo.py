@@ -6,8 +6,8 @@ import facebook
 facebookStreamUrl = facebook.getStreamUrl()
 youtubeStreamUrl = youtube.getStreamUrl()
 
-print facebookStreamUrl
-print youtubeStreamUrl
+print "Facebook Stream: " + facebookStreamUrl
+print "Youtube Stream: " + youtubeStreamUrl
 
 f = open("nginx.conf.default","r")
 filedata = f.read()
