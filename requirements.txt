@@ -1,3 +1,7 @@
 py
 argparse
 requests
+
+httplib2
+apiclient
+oauth2client

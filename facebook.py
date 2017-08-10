@@ -1,3 +1,4 @@
+import locale
 import json
 import os
 import requests
@@ -12,11 +13,15 @@ def getStreamUrl():
     if token  is None:
         raise Exception("No env variable FILOCALIA_FB_TOKEN found!")
 
+    locale.setlocale(locale.LC_TIME, "ro_RO")
+    title = "Test - " + time.strftime("%A, %d %B %Y")
+    description = "This is a test for a live video"
+
     r = requests.post(
         "https://graph.facebook.com/v2.9/" + str(pageId) + "/live_videos"
         + "?access_token=" + str(token)
-        + "&title=Test Live Video"
-        + "&description=This is a test for a live video on " + time.strftime("%a, %d %b %Y"))
+        + "&title=" + title
+        + "&description=" + description)
 
     j = json.loads(r.text)
     return j["stream_url"]

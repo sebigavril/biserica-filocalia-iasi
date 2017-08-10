@@ -18,7 +18,7 @@ rtmp {
 
                 application live {
                         live on;
-                        record off;                        
+                        record off;
 			                  push FILOCALIA_FB_STREAM_URL;
 			                  push FILOCALIA_YT_STREAM_URL;
                 }
