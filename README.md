@@ -14,5 +14,10 @@ Simple script that creates a pdf file with songs exported from easislides in the
  #### postLiveVideo
  Simple script that posts a live video to facebook & youtube
 
- ###### How to run
+###### How to run
   - pip install -r requirements.txt
+  - set environment variables:
+    - FILOCALIA_FB_PAGE_ID
+    - FILOCALIA_FB_TOKEN
+    - FILOCALIA_YT_CLIENT_SECRETS_FILE
+  - python postLiveVideo.py

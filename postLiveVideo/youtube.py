@@ -13,10 +13,12 @@ from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
 def get_authenticated_service():
-    # todo move secrets file
-    CLIENT_SECRETS_FILE = "client_secrets.json"
+    clientSecretsFile = os.environ.get("FILOCALIA_YT_CLIENT_SECRETS_FILE")
+    if clientSecretsFile is None:
+        raise Exception("No env variable FILOCALIA_YT_CLIENT_SECRETS_FILE found!")
+
     flow = flow_from_clientsecrets(
-        CLIENT_SECRETS_FILE,
+        str(clientSecretsFile),
         scope="https://www.googleapis.com/auth/youtube",
         message="No client_secrets file found! To get one, create an OAuth 2.0 client ID and download it from the google console. ")
 
