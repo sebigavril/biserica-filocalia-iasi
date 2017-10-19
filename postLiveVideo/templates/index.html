@@ -9,16 +9,16 @@
             namespace = '/stream';
             var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
-            socket.on('start_stream_confirmation_server_event', function(msg) {
-                $('#stream_input_data_log').html(JSON.stringify(msg));
-            });
-
             socket.on('stream_status_server_event', function(msg) {
-                $('#stream_status_log').html(msg.status);
+                $('#stream_status_log').html("Streaming status: " + msg.status);
             });
 
             socket.on('facebook_status_server_event', function(msg) {
-                $('#facebook_status_log').html(msg.status);
+                $('#facebook_status_log').html("Facebook stream url: " + msg.status);
+            });
+
+            socket.on('youtube_status_server_event', function(msg) {
+                $('#youtube_status_log').html("Youtube stream url: " + msg.status);
             });
 
             $('form#start_stream').submit(function(event) {
@@ -46,15 +46,28 @@
     <form id="start_stream" method="POST" action='#'>
         <input type="checkbox" name="youtube_stream" id="youtube_stream" value="Youtube" checked> Stream to Youtube<br>
         <input type="checkbox" name="facebook_stream" id="facebook_stream" value="Facebook" checked> Stream to Facebook<br>
-        {% if session['streaming'] == False %}
-             <input type="submit" id="toggle_stream" value="Start streaming">
+        {% if session['status'] == "on" or session['status'] == "starting" %}
+            <input type="submit" id="toggle_stream" value="Stop streaming">
          {% else %}
-             <input type="submit" id="toggle_stream" value="Stop streaming">
+            <input type="submit" id="toggle_stream" value="Start streaming">
          {% endif %}
     </form>
     <h2>Status:</h2>
-    <div id="stream_input_data_log"></div>
-    <div id="stream_status_log"></div>
-    <div id="facebook_status_log"></div>
+    <div id="stream_status_log">
+      Streaming status:
+      {% if session['status'] == "on" %}
+         on
+      {% elif "starting" in session['status'] %}
+        starting...
+      {% else %}
+        off
+      {% endif %}
+    </div>
+    <div id="facebook_status_log">
+      Facebook stream url: {{session['urls']['facebookStreamUrl']}}
+    </div>
+    <div id="youtube_status_log">
+      Youtube stream url: {{session['urls']['youtubeStreamUrl']}}
+    </div>
 </body>
 </html>
