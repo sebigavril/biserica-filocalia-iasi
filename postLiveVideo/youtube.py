@@ -33,7 +33,7 @@ def get_authenticated_service():
         "v3",
         http=credentials.authorize(httplib2.Http()))
 
-def getPersistendBroadcast(youtube):
+def getPersistendBroazdcast(youtube):
     res = youtube.liveBroadcasts().list(
         part="id,snippet,contentDetails,status",
         broadcastStatus="all",
