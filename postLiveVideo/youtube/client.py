@@ -10,6 +10,7 @@ from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
 def get_authenticated_service():
+    print("Creating youtube client...")
     clientSecretsFile = os.environ.get("FILOCALIA_YT_CLIENT_SECRETS_FILE")
     if clientSecretsFile is None:
         raise Exception("No env variable FILOCALIA_YT_CLIENT_SECRETS_FILE found!")
@@ -25,7 +26,9 @@ def get_authenticated_service():
     if credentials is None or credentials.invalid:
         credentials = run_flow(flow, storage, argparser.parse_args())
 
-    return build(
+    res = build(
         "youtube",
         "v3",
         http=credentials.authorize(httplib2.Http()))
+    print("Creating youtube client - DONE")
+    return res
